@@ -1,0 +1,18 @@
+-- Seleciona todas as colunas da tabela 'TABELA_DE_CLIENTES'
+SELECT * FROM TABELA_DE_CLIENTES;
+
+-- Seleciona as colunas CPF, BAIRRO, NOME e CIDADE da tabela 'TABELA_DE_CLIENTES'
+SELECT CPF, BAIRRO, NOME, CIDADE FROM TABELA_DE_CLIENTES;
+
+-- Seleciona as colunas NOME, CPF e BAIRRO da tabela 'TABELA_DE_CLIENTES'
+SELECT NOME, CPF, BAIRRO FROM TABELA_DE_CLIENTES;
+
+-- Seleciona as colunas CPF e NOME da tabela 'TABELA_DE_CLIENTES', renomeando as colunas:
+-- 'CPF' como 'IDENTIFICADOR' e 'NOME' como 'NOME DO CLIENTE'
+SELECT CPF AS IDENTIFICADOR, NOME AS [NOME DO CLIENTE] FROM TABELA_DE_CLIENTES;
+
+-- Seleciona todas as colunas da tabela 'TABELA_DE_CLIENTES' e atribui o alias 'TDC' para a tabela
+SELECT * FROM TABELA_DE_CLIENTES TDC;
+
+-- Seleciona as colunas NOME, CIDADE e BAIRRO da tabela 'TABELA_DE_CLIENTES', usando o alias 'TDC'
+SELECT TDC.NOME, TDC.CIDADE, TDC.BAIRRO FROM TABELA_DE_CLIENTES TDC;
