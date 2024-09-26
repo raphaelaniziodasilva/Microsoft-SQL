@@ -1,3 +1,10 @@
+-- O GROUP BY é uma cláusula SQL usada para agrupar linhas que compartilham valores em uma ou mais colunas, permitindo que funções de agregação, como SUM (soma), AVG (média), COUNT (contagem), MIN (mínimo) e MAX (máximo), sejam aplicadas a essas linhas agrupadas.
+
+-- Essencialmente, o GROUP BY permite que você organize seus dados em grupos com base em uma ou mais colunas, e dentro de cada grupo, você pode realizar cálculos agregados.
+
+-- Quando você utiliza o GROUP BY, os resultados são agrupados com base em uma coluna (ou colunas), e o cálculo da função agregada será aplicado a cada grupo individualmente.
+
+
 -- Seleciona todas as colunas da tabela 'TABELA_DE_CLIENTES'
 SELECT * FROM TABELA_DE_CLIENTES;
 
@@ -21,3 +28,7 @@ SELECT CIDADE, COUNT(*) AS NUMERO_DE_CLIENTES FROM TABELA_DE_CLIENTES GROUP BY C
 
 -- Agrupa os produtos por 'EMBALAGEM' e conta o número de produtos onde o sabor é 'Laranja'
 SELECT EMBALAGEM, COUNT(*) AS NUMERO_DE_CLIENTES FROM TABELA_DE_PRODUTOS WHERE SABOR = 'Laranja' GROUP BY EMBALAGEM;
+
+
+-- Agrupar linhas que têm valores iguais em uma ou mais colunas.
+-- Aplicar funções de agregação em cada grupo de linhas, como somar, contar ou calcular a média de valores dentro de cada grupo.
