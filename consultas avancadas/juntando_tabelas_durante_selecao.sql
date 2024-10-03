@@ -1,0 +1,29 @@
+-- Seleciona todos os registros da tabela TABELA_DE_VENDEDORES
+SELECT * FROM TABELA_DE_VENDEDORES;
+
+-- Seleciona todos os registros da tabela NOTAS_FISCAIS
+SELECT * FROM NOTAS_FISCAIS;
+
+-- Seleciona a matrícula e a contagem total de notas fiscais por vendedor (MATRICULA) agrupando pela matrícula
+SELECT MATRICULA, COUNT(*) AS TOTAL_DE_NOTAS FROM NOTAS_FISCAIS 
+GROUP BY MATRICULA;
+
+-- Seleciona a matrícula das notas fiscais e o nome dos vendedores fazendo um INNER JOIN entre as duas tabelas, relacionando a matrícula
+SELECT NOTAS_FISCAIS.MATRICULA, TABELA_DE_VENDEDORES.NOME 
+FROM NOTAS_FISCAIS
+INNER JOIN TABELA_DE_VENDEDORES
+ON NOTAS_FISCAIS.MATRICULA = TABELA_DE_VENDEDORES.MATRICULA;
+
+-- Seleciona a matrícula, o nome dos vendedores e a contagem total de notas fiscais por vendedor, agrupando por matrícula e nome
+SELECT NOTAS_FISCAIS.MATRICULA, TABELA_DE_VENDEDORES.NOME, COUNT(*) AS TOTAL_DE_NOTAS
+FROM NOTAS_FISCAIS 
+INNER JOIN TABELA_DE_VENDEDORES
+ON NOTAS_FISCAIS.MATRICULA = TABELA_DE_VENDEDORES.MATRICULA
+GROUP BY NOTAS_FISCAIS.MATRICULA, TABELA_DE_VENDEDORES.NOME;
+
+-- Versão mais curta do mesmo comando acima, usando aliases (NF para NOTAS_FISCAIS e TV para TABELA_DE_VENDEDORES)
+SELECT NF.MATRICULA, TV.NOME, COUNT(*) AS TOTAL_DE_NOTAS
+FROM NOTAS_FISCAIS NF
+INNER JOIN TABELA_DE_VENDEDORES TV
+ON NF.MATRICULA = TV.MATRICULA
+GROUP BY NF.MATRICULA, TV.NOME;
