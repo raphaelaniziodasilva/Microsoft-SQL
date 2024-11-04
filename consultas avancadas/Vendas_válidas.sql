@@ -1,0 +1,50 @@
+-- Seleciona o CPF, o mês e ano da data de venda no formato 'YYYY-MM' e a quantidade total de itens vendidos
+-- Agrupando os dados por CPF e mês/ano
+SELECT NF.CPF, 
+CONVERT(VARCHAR(7), NF.DATA_VENDA, 120) AS MES_ANO, 
+SUM(INF.QUANTIDADE) AS QUANTIDADE_TOTAL 
+FROM NOTAS_FISCAIS NF 
+INNER JOIN ITENS_NOTAS_FISCAIS INF 
+ON NF.NUMERO = INF.NUMERO 
+GROUP BY NF.CPF, CONVERT(VARCHAR(7), NF.DATA_VENDA, 120);
+
+-- Seleciona o CPF, nome e volume de compra de cada cliente
+SELECT CPF, NOME, VOLUME_DE_COMPRA 
+FROM TABELA_DE_CLIENTES;
+
+-- Combina informações de clientes e suas vendas mensais, incluindo uma coluna 'RESULTADO' que compara o volume de compra com a quantidade total de vendas para o mesmo CPF e mês/ano
+SELECT 
+TC.CPF, TC.NOME, TC.VOLUME_DE_COMPRA, TV.MES_ANO, TV.QUANTIDADE_TOTAL, 
+(CASE WHEN TC.VOLUME_DE_COMPRA >= TV.QUANTIDADE_TOTAL THEN 'VENDAS VÁLIDAS' 
+ELSE 'VENDAS INVÁLIDAS' END) AS RESULTADO 
+FROM TABELA_DE_CLIENTES TC 
+INNER JOIN (
+    -- Subconsulta para calcular a quantidade total de itens vendidos por CPF e mês/ano
+    SELECT NF.CPF, 
+    CONVERT(VARCHAR(7), NF.DATA_VENDA, 120) AS MES_ANO, 
+    SUM(INF.QUANTIDADE) AS QUANTIDADE_TOTAL 
+    FROM NOTAS_FISCAIS NF 
+    INNER JOIN ITENS_NOTAS_FISCAIS INF 
+    ON NF.NUMERO = INF.NUMERO 
+    GROUP BY NF.CPF, CONVERT(VARCHAR(7), NF.DATA_VENDA, 120)
+) TV
+ON TV.CPF = TC.CPF;
+
+-- Filtra os resultados para mostrar apenas as vendas do mês e ano '2015-01'
+SELECT 
+TC.CPF, TC.NOME, TC.VOLUME_DE_COMPRA, TV.MES_ANO, TV.QUANTIDADE_TOTAL, 
+(CASE WHEN TC.VOLUME_DE_COMPRA >= TV.QUANTIDADE_TOTAL THEN 'VENDAS VÁLIDAS' 
+ELSE 'VENDAS INVÁLIDAS' END) AS RESULTADO 
+FROM TABELA_DE_CLIENTES TC 
+INNER JOIN (
+    -- Subconsulta para calcular a quantidade total de itens vendidos por CPF e mês/ano
+    SELECT NF.CPF, 
+    CONVERT(VARCHAR(7), NF.DATA_VENDA, 120) AS MES_ANO, 
+    SUM(INF.QUANTIDADE) AS QUANTIDADE_TOTAL 
+    FROM NOTAS_FISCAIS NF 
+    INNER JOIN ITENS_NOTAS_FISCAIS INF 
+    ON NF.NUMERO = INF.NUMERO 
+    GROUP BY NF.CPF, CONVERT(VARCHAR(7), NF.DATA_VENDA, 120)
+) TV
+ON TV.CPF = TC.CPF 
+WHERE TV.MES_ANO = '2015-01';
